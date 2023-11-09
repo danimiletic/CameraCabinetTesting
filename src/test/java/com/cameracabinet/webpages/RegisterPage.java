@@ -1,10 +1,6 @@
 package com.cameracabinet.webpages;
 
-import org.openqa.selenium.JavascriptException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -59,7 +55,12 @@ public class RegisterPage {
         return logoutBtn.isDisplayed();
     }
 
-    public boolean isUserLoggedOut() { return loginBtn.isDisplayed(); }
+    public boolean checkUserLoggedOut() { return loginBtn.isDisplayed(); }
+
+    public void clickAlertPopUp() {
+        Alert ok = driver.switchTo().alert();
+        ok.accept();
+    }
 
     public boolean checkEmailIsValid() {
         return invalidEmail.isDisplayed();

@@ -29,13 +29,13 @@ public class UserRegisterTest {
 //        Navigate to RegisterPage
         home.navigateToRegister();
 
-        // Create RegisterPage object
+//        Create RegisterPage object
         RegisterPage register = new RegisterPage(driver);
 
-        // Assert page is opened
+//        Assert page is opened
         Assert.assertTrue(register.isPageOpened());
 
-        // Fill out user info
+//        Fill out user info
         register.setFirstName("Bobson");
         register.setLastName("Dugnutt");
         register.setEmail("bobsondugnutt@email.com");
@@ -43,27 +43,29 @@ public class UserRegisterTest {
         register.setUserPasswordConfirmation("bobson123");
         register.clickSubmitButton();
 
-        // Check that we were navigated to HomePage
+//        Check that we were navigated to HomePage
         Assert.assertTrue(home.checkUserLoggedIn());
     }
+
+    @Ignore
     @Test
-    public void RegisterWithoutEmailUsername() throws InterruptedException {
-        // Create HomePage object
+    public void CannotRegisterWithoutEmailUsername() {
+//        Create HomePage object
         HomePage home = new HomePage(driver);
 
-        // Check if page has opened
+//        Check if page has opened
         Assert.assertTrue(home.isPageOpened());
 
-        // Navigate to RegisterPage
+//        Navigate to RegisterPage
         home.navigateToRegister();
 
-        // Create RegisterPage object
+//        Create RegisterPage object
         RegisterPage register = new RegisterPage(driver);
 
-        // Assert page is opened
+//        Assert page is opened
         Assert.assertTrue(register.isPageOpened());
 
-        // Fill out user info
+//        Fill out user info
         register.setFirstName("Bobson");
         register.setLastName("Dugnutt");
         register.setEmail("@email.com");
@@ -75,12 +77,111 @@ public class UserRegisterTest {
 //        This is not currently working
 //        Assert.assertTrue(register.checkEmailIsValid());
 
-        // Check that login failed by assert login button still exists
-        Assert.assertTrue(register.isUserLoggedOut());
+//        Check that login failed by assert login button still exists
+        Assert.assertTrue(register.checkUserLoggedOut());
     }
 
-      @After
-      public void close() {
-          driver.close();
-      }
+    @Ignore
+    @Test
+    public void CannotRegisterWithoutEmailDomainName() {
+//        Create HomePage object
+        HomePage home = new HomePage(driver);
+
+//        Check if page has opened
+        Assert.assertTrue(home.isPageOpened());
+
+//        Navigate to RegisterPage
+        home.navigateToRegister();
+
+//        Create RegisterPage object
+        RegisterPage register = new RegisterPage(driver);
+
+//        Assert page is opened
+        Assert.assertTrue(register.isPageOpened());
+
+//        Fill out user info
+        register.setFirstName("Bobson");
+        register.setLastName("Dugnutt");
+        register.setEmail("bobsondugnutt.com");
+        register.setPassword("bobson123");
+        register.setUserPasswordConfirmation("bobson123");
+        register.clickSubmitButton();
+
+//        Check that login failed by assert login button still exists
+        Assert.assertTrue(register.checkUserLoggedOut());
+
+    }
+
+    @Ignore
+    @Test
+    public void CannotRegisterWithOnlyNumbersInEmail() {
+//        Create HomePage objects
+        HomePage home = new HomePage(driver);
+
+//        Check if home page has opened
+        Assert.assertTrue(home.isPageOpened());
+
+//        Navigate to RegisterPage
+        home.navigateToRegister();
+
+//        Create RegisterPage object
+        RegisterPage register = new RegisterPage(driver);
+
+//        Assert page is opened
+        Assert.assertTrue(register.isPageOpened());
+
+//        Fill out user info
+        register.setFirstName("Bobson");
+        register.setLastName("Dugnutt");
+        register.setEmail("12345");
+        register.setPassword("bobson123");
+        register.setUserPasswordConfirmation("bobson123");
+        register.clickSubmitButton();
+
+//        Check that we were navigated to HomePage
+        Assert.assertTrue(register.checkUserLoggedOut());
+
+    }
+
+    @Test
+    public void CannotRegisterIfPasswordsDoNotMatch() throws InterruptedException {
+//        Create HomePage objects
+        HomePage home = new HomePage(driver);
+
+//        Check if home page has opened
+        Assert.assertTrue(home.isPageOpened());
+
+//        Navigate to RegisterPage
+        home.navigateToRegister();
+
+//        Create RegisterPage object
+        RegisterPage register = new RegisterPage(driver);
+
+//        Assert page is opened
+        Assert.assertTrue(register.isPageOpened());
+
+//        Fill out user info
+        register.setFirstName("Bobson");
+        register.setLastName("Dugnutt");
+        register.setEmail("bobsondugnutt@email.com");
+        register.setPassword("bobson123");
+        register.setUserPasswordConfirmation("bobson1111");
+        register.clickSubmitButton();
+        register.waitToRender();
+
+//        Write method to check if popup is displayed
+
+//        Click popup
+        register.clickAlertPopUp();
+
+//        Check that we were navigated to HomePage
+        Assert.assertTrue(register.checkUserLoggedOut());
+
+
+    }
+
+//      @After
+//      public void close() {
+//          driver.close();
+//      }
 }
