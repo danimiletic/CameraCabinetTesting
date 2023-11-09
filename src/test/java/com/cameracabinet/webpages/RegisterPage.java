@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -13,6 +14,8 @@ public class RegisterPage {
     private WebDriver driver;
 
     // Locators
+    @FindBy(xpath = "//*[contains(text(), 'Error: Please enter valid email address.')]")
+    WebElement invalidEmail;
     @FindBy(id = "registerHeader")
     private WebElement registerHeader;
 
@@ -37,6 +40,9 @@ public class RegisterPage {
     @FindBy(id = "logoutBtn")
     private WebElement logoutBtn;
 
+    @FindBy(id = "loginBtn")
+    private WebElement loginBtn;
+
     // Constructor
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
@@ -53,10 +59,11 @@ public class RegisterPage {
         return logoutBtn.isDisplayed();
     }
 
-    //  More concise syntax
-    //  public boolean isPageOpened() {
-    //  return registerHeader.getText().toString().contains("Register");
-    // }
+    public boolean isUserLoggedOut() { return loginBtn.isDisplayed(); }
+
+    public boolean checkEmailIsValid() {
+        return invalidEmail.isDisplayed();
+    }
 
     public void setFirstName(String fName) {
         firstName.clear();
@@ -87,7 +94,7 @@ public class RegisterPage {
         submitBtn.click();
     }
 
-    public void waitToRender() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+    public void waitToRender() throws InterruptedException {
+        Thread.sleep(1000);
     }
 }
